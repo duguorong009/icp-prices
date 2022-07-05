@@ -9,7 +9,6 @@ type PriceData =
     };
 
 service : {
-    "greet": (text) -> (text) query;
     "add_node": (node: principal) -> (opt principal);
     "remove_node": (node: principal) -> (opt principal);
     "add_data": (asset: nat64, data: PriceData) -> (bool);
