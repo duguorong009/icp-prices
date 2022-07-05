@@ -68,6 +68,16 @@ impl State {
         });
         true
     }
+
+    pub fn get_data(&self, asset: u64) -> Vec<PriceData> {
+        let mut res: Vec<PriceData> = vec![];
+        for i in 0..self.nodes.len() {
+            let node_store = self.asset_data.get(&asset).unwrap();
+            let data = node_store.nodes.get(&self.nodes[i]).unwrap();
+            res.push(data.clone());
+        }
+        res
+    }
 }
 
 thread_local! {

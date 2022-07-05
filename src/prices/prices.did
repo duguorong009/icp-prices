@@ -13,4 +13,5 @@ service : {
     "add_node": (node: principal) -> (opt principal);
     "remove_node": (node: principal) -> (opt principal);
     "add_data": (asset: nat64, data: PriceData) -> (bool);
+    "get_data": (asset: nat64) -> (vec PriceData) query;
 }

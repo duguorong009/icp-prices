@@ -10,6 +10,7 @@ export const idlFactory = ({ IDL }) => {
   return IDL.Service({
     'add_data' : IDL.Func([IDL.Nat64, PriceData], [IDL.Bool], []),
     'add_node' : IDL.Func([IDL.Principal], [IDL.Opt(IDL.Principal)], []),
+    'get_data' : IDL.Func([IDL.Nat64], [IDL.Vec(PriceData)], ['query']),
     'greet' : IDL.Func([IDL.Text], [IDL.Text], ['query']),
     'remove_node' : IDL.Func([IDL.Principal], [IDL.Opt(IDL.Principal)], []),
   });

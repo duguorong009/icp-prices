@@ -35,6 +35,14 @@ fn add_data(asset: u64, data: PriceData) -> bool {
 }
 
 #[query]
+fn get_data(asset: u64) -> Vec<PriceData> {
+    return STATE.with(|s| {
+        let state = s.borrow();
+        return state.get_data(asset);
+    });
+}
+
+#[query]
 fn greet(name: String) -> String {
     format!("Hello, {}!", name)
 }
