@@ -3,9 +3,11 @@ use serde::Deserialize;
 use std::{collections::HashMap, vec};
 
 #[derive(Default, CandidType, Deserialize)]
-pub struct NodeStore {
-    pub nodes: HashMap<Principal, PriceData>,
+pub struct NodePriceDataMap {
+    pub map: HashMap<Principal, PriceData>,
 }
+
+impl NodePriceDataMap {}
 
 #[derive(CandidType, Deserialize, Clone)]
 pub struct PriceData {
@@ -16,5 +18,3 @@ pub struct PriceData {
     is_closed: bool,
     signature: Vec<u8>,
 }
-
-impl NodeStore {}

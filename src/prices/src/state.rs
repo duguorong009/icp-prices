@@ -3,11 +3,11 @@ use serde::Deserialize;
 use std::cell::RefCell;
 use std::collections::HashMap;
 
-use crate::price::{NodeStore, PriceData};
+use crate::price::{NodePriceDataMap, PriceData};
 
 #[derive(Default, CandidType, Deserialize)]
 pub struct State {
-    asset_data: HashMap<u64, NodeStore>,
+    asset_data: HashMap<u64, NodePriceDataMap>,
 
     pub owner: Option<Principal>,
     pub nodes: Vec<Principal>,
@@ -63,8 +63,8 @@ impl State {
         }
 
         // Insert data
-        self.asset_data.entry(asset).and_modify(|node_store| {
-            node_store.nodes.insert(caller, data);
+        self.asset_data.entry(asset).and_modify(|node_price| {
+            node_price.map.insert(caller, data);
         });
         true
     }
@@ -72,8 +72,8 @@ impl State {
     pub fn get_data(&self, asset: u64) -> Vec<PriceData> {
         let mut res: Vec<PriceData> = vec![];
         for i in 0..self.nodes.len() {
-            let node_store = self.asset_data.get(&asset).unwrap();
-            let data = node_store.nodes.get(&self.nodes[i]).unwrap();
+            let node_price = self.asset_data.get(&asset).unwrap();
+            let data = node_price.map.get(&self.nodes[i]).unwrap();
             res.push(data.clone());
         }
         res
