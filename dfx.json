@@ -1,0 +1,36 @@
+{
+  "canisters": {
+    "prices": {
+      "candid": "src/prices/prices.did",
+      "package": "prices",
+      "type": "rust"
+    },
+    "prices_assets": {
+      "dependencies": [
+        "prices"
+      ],
+      "frontend": {
+        "entrypoint": "src/prices_assets/src/index.html"
+      },
+      "source": [
+        "src/prices_assets/assets",
+        "dist/prices_assets/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "dfx": "0.10.1",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "version": 1
+}
