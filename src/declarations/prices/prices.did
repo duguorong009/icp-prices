@@ -1,0 +1,16 @@
+type PriceData = 
+    record {
+        provider: principal;
+        asset: nat64;
+        price: nat64;
+        timestamp: nat64;
+        is_closed: bool;
+        signature: vec nat8;
+    };
+
+service : {
+    "greet": (text) -> (text) query;
+    "add_node": (node: principal) -> (opt principal);
+    "remove_node": (node: principal) -> (opt principal);
+    "add_data": (asset: nat64, data: PriceData) -> (bool);
+}
