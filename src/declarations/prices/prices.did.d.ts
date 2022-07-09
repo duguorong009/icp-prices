@@ -13,5 +13,6 @@ export interface _SERVICE {
   'add_data' : ActorMethod<[bigint, PriceData], boolean>,
   'add_node' : ActorMethod<[Principal], [] | [Principal]>,
   'get_data' : ActorMethod<[bigint], Array<PriceData>>,
+  'get_owner' : ActorMethod<[], [] | [Principal]>,
   'remove_node' : ActorMethod<[Principal], [] | [Principal]>,
 }

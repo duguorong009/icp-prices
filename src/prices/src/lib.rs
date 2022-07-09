@@ -41,3 +41,10 @@ fn get_data(asset: u64) -> Vec<PriceData> {
         return state.get_data(asset);
     });
 }
+#[query]
+fn get_owner() -> Option<Principal> {
+    return STATE.with(|s| {
+        let state = s.borrow();
+        return state.owner;
+    });
+}
