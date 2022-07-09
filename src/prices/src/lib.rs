@@ -29,13 +29,13 @@ fn remove_node(node: Principal) -> Option<Principal> {
 }
 
 #[update]
-fn add_data(asset: u64, data: PriceData) -> bool {
+fn add_data(asset: u32, data: PriceData) -> bool {
     let caller = ic_cdk::caller();
     return STATE.with(|s| s.borrow_mut().add_data(asset, data, caller));
 }
 
 #[query]
-fn get_data(asset: u64) -> Vec<PriceData> {
+fn get_data(asset: u32) -> Vec<PriceData> {
     return STATE.with(|s| {
         let state = s.borrow();
         return state.get_data(asset);

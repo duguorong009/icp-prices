@@ -7,11 +7,11 @@ use crate::price::{NodePriceDataMap, PriceData};
 
 #[derive(Default, CandidType, Deserialize)]
 pub struct State {
-    asset_data: HashMap<u64, NodePriceDataMap>,
+    asset_data: HashMap<u32, NodePriceDataMap>,
 
     pub owner: Option<Principal>,
     pub nodes: Vec<Principal>,
-    pub nodes_index: HashMap<Principal, u64>,
+    pub nodes_index: HashMap<Principal, u32>,
 }
 
 impl State {
@@ -22,7 +22,7 @@ impl State {
             }
         }
         let id = self.nodes_index.len();
-        self.nodes_index.insert(node.clone(), id as u64);
+        self.nodes_index.insert(node.clone(), id as u32);
         self.nodes.push(node);
         Some(node)
     }
@@ -42,7 +42,7 @@ impl State {
             }
         };
         let last_node = self.nodes[nodes_len - 1];
-        self.nodes_index.insert(last_node, node_id as u64);
+        self.nodes_index.insert(last_node, node_id as u32);
 
         self.nodes[node_id] = self.nodes[nodes_len - 1];
 
@@ -51,7 +51,7 @@ impl State {
         self.nodes.pop()
     }
 
-    pub fn add_data(&mut self, asset: u64, data: PriceData, caller: Principal) -> bool {
+    pub fn add_data(&mut self, asset: u32, data: PriceData, caller: Principal) -> bool {
         // Validations
         let id = match self.nodes_index.get(&caller) {
             Some(id) => *id as usize,
@@ -69,7 +69,7 @@ impl State {
         true
     }
 
-    pub fn get_data(&self, asset: u64) -> Vec<PriceData> {
+    pub fn get_data(&self, asset: u32) -> Vec<PriceData> {
         let mut res: Vec<PriceData> = vec![];
         for i in 0..self.nodes.len() {
             let node_price = self.asset_data.get(&asset).unwrap();

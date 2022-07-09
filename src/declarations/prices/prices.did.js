@@ -2,15 +2,15 @@ export const idlFactory = ({ IDL }) => {
   const PriceData = IDL.Record({
     'signature' : IDL.Vec(IDL.Nat8),
     'provider' : IDL.Principal,
-    'asset' : IDL.Nat64,
-    'timestamp' : IDL.Nat64,
+    'asset' : IDL.Nat32,
+    'timestamp' : IDL.Nat32,
     'is_closed' : IDL.Bool,
-    'price' : IDL.Nat64,
+    'price' : IDL.Nat32,
   });
   return IDL.Service({
-    'add_data' : IDL.Func([IDL.Nat64, PriceData], [IDL.Bool], []),
+    'add_data' : IDL.Func([IDL.Nat32, PriceData], [IDL.Bool], []),
     'add_node' : IDL.Func([IDL.Principal], [IDL.Opt(IDL.Principal)], []),
-    'get_data' : IDL.Func([IDL.Nat64], [IDL.Vec(PriceData)], ['query']),
+    'get_data' : IDL.Func([IDL.Nat32], [IDL.Vec(PriceData)], ['query']),
     'get_owner' : IDL.Func([], [IDL.Opt(IDL.Principal)], ['query']),
     'remove_node' : IDL.Func([IDL.Principal], [IDL.Opt(IDL.Principal)], []),
   });

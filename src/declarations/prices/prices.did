@@ -1,9 +1,9 @@
 type PriceData = 
     record {
         provider: principal;
-        asset: nat64;
-        price: nat64;
-        timestamp: nat64;
+        asset: nat32;
+        price: nat32;
+        timestamp: nat32;
         is_closed: bool;
         signature: vec nat8;
     };
@@ -11,7 +11,7 @@ type PriceData =
 service : {
     "add_node": (node: principal) -> (opt principal);
     "remove_node": (node: principal) -> (opt principal);
-    "add_data": (asset: nat64, data: PriceData) -> (bool);
-    "get_data": (asset: nat64) -> (vec PriceData) query;
+    "add_data": (asset: nat32, data: PriceData) -> (bool);
+    "get_data": (asset: nat32) -> (vec PriceData) query;
     "get_owner": () -> (opt principal) query;
 }
