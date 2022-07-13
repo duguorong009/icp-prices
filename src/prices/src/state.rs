@@ -21,6 +21,9 @@ impl State {
                 return None;
             }
         }
+        if self.nodes.contains(&node) {
+            return None;
+        }
         let id = self.nodes_index.len();
         self.nodes_index.insert(node.clone(), id as u32);
         self.nodes.push(node);
