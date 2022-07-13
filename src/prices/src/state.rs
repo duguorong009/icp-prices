@@ -3,11 +3,11 @@ use serde::Deserialize;
 use std::cell::RefCell;
 use std::collections::HashMap;
 
-use crate::price::{NodePriceDataMap, PriceData};
+use crate::price::{Node2Price, PriceData};
 
 #[derive(Default, CandidType, Deserialize)]
 pub struct State {
-    asset_data: HashMap<u32, NodePriceDataMap>,
+    asset_data: HashMap<u32, Node2Price>,
 
     pub owner: Option<Principal>,
     pub nodes: Vec<Principal>,
@@ -53,18 +53,18 @@ impl State {
 
     pub fn add_data(&mut self, asset: u32, data: PriceData, caller: Principal) -> bool {
         // Validations
-        let id = match self.nodes_index.get(&caller) {
+        let caller_id = match self.nodes_index.get(&caller) {
             Some(id) => *id as usize,
             None => return false,
         };
-        let node = self.nodes[id];
+        let node = self.nodes[caller_id];
         if node != caller {
             return false; // should return err
         }
 
         // Insert data
         if !self.asset_data.contains_key(&asset) {
-            self.asset_data.insert(asset, NodePriceDataMap::default());
+            self.asset_data.insert(asset, Node2Price::default());
         }
         self.asset_data.entry(asset).and_modify(|node_price| {
             node_price.map.insert(caller, data);
