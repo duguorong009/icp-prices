@@ -5,7 +5,7 @@ type PriceData =
         price: nat32;
         timestamp: nat32;
         is_closed: bool;
-        signature: vec nat8;
+        signature: text;
     };
 
 service : {
@@ -14,4 +14,6 @@ service : {
     "add_data": (asset: nat32, data: PriceData) -> (bool);
     "get_data": (asset: nat32) -> (vec PriceData) query;
     "get_owner": () -> (opt principal) query;
+    "get_caller": () -> (principal) query;
+    "get_nodes": () -> (vec principal) query;
 }

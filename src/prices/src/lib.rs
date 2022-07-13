@@ -48,3 +48,16 @@ fn get_owner() -> Option<Principal> {
         return state.owner;
     });
 }
+
+#[query]
+fn get_caller() -> Principal {
+    ic_cdk::caller()
+}
+
+#[query]
+fn get_nodes() -> Vec<Principal> {
+    return STATE.with(|s| {
+        let state = s.borrow();
+        return state.nodes.clone();
+    })
+}

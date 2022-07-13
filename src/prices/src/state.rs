@@ -63,6 +63,9 @@ impl State {
         }
 
         // Insert data
+        if !self.asset_data.contains_key(&asset) {
+            self.asset_data.insert(asset, NodePriceDataMap::default());
+        }
         self.asset_data.entry(asset).and_modify(|node_price| {
             node_price.map.insert(caller, data);
         });

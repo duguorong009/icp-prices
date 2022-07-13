@@ -16,5 +16,5 @@ pub struct PriceData {
     price: u32,
     timestamp: u32,
     is_closed: bool,
-    signature: Vec<u8>,
+    signature: String,
 }
